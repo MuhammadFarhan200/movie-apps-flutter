@@ -1,27 +1,12 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
 import 'package:movie_apps_flutter/app/providers/api.dart';
 import 'package:movie_apps_flutter/app/routes/app_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginController extends GetxController {
-  TextEditingController emailController = TextEditingController(text: 'admin@gmail.com');
-  TextEditingController passwordController = TextEditingController(text: 'rahasia');
 
-  @override
-  void onClose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.onClose();
-  }
-
-  bool _secureText = true;
-  void showHide() {
-    _secureText = !_secureText;
-  }
-
+class AuthController extends GetxController {
   void _login() async {
 
     var email, password;
@@ -39,5 +24,4 @@ class LoginController extends GetxController {
       Get.snackbar('OOPS!', body['message']);
     }
   }
-
 }

@@ -11,16 +11,18 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: const Color.fromARGB(255, 11, 11, 20),
         title: const Image(
           height: 80,
           image: AssetImage('assets/images/movie-apps-logo-no-bg.png'),
         ),
-        centerTitle: true,
+        centerTitle: false,
       ),
-      body: SafeArea(
-        child: Image(
-          image: AssetImage('assets/images/movie-apps-logo-no-bg.png'),
+      body: const SafeArea(
+        child: Center(
+          child: Text(
+            'Welcome to home page!',
+            style: TextStyle(fontSize: 24),
+          ),
         ),
       ),
     );

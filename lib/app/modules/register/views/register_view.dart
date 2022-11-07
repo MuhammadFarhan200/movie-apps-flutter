@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:movie_apps_flutter/app/controllers/auth_controller.dart';
 import 'package:movie_apps_flutter/app/routes/app_pages.dart';
 
-import '../controllers/login_controller.dart';
+import '../controllers/register_controller.dart';
 
-class LoginView extends GetView<LoginController> {
-  LoginView({Key? key}) : super(key: key);
-
+class RegisterView extends GetView<RegisterController> {
+  RegisterView({Key? key}) : super(key: key);
+  
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
   final bool _secureText = true;
-  final authC = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +38,7 @@ class LoginView extends GetView<LoginController> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        "Login",
+                        "Register",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 24,
@@ -50,9 +48,25 @@ class LoginView extends GetView<LoginController> {
                       const SizedBox(height: 18),
                       TextFormField(
                         autofocus: true,
+                        controller: controller.namaController,
+                        cursorColor: Colors.blue,
+                        keyboardType: TextInputType.text,
+                        decoration: const InputDecoration(
+                          hintText: "Nama",
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Nama harus diisi!';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 12),
+                      TextFormField(
                         controller: controller.emailController,
                         cursorColor: Colors.blue,
                         keyboardType: TextInputType.text,
+                        obscureText: _secureText,
                         decoration: const InputDecoration(
                           hintText: "Email",
                         ),
@@ -80,13 +94,29 @@ class LoginView extends GetView<LoginController> {
                         },
                       ),
                       const SizedBox(height: 12),
+                      TextFormField(
+                        controller: controller.confirmPasswordController,
+                        cursorColor: Colors.blue,
+                        keyboardType: TextInputType.text,
+                        obscureText: _secureText,
+                        decoration: const InputDecoration(
+                          hintText: "Confirm Password",
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Confirm Password harus diisi!';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 12),
                       ElevatedButton(
                         // ignore: sort_child_properties_last
                         child: const Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 18, vertical: 10),
                           child: Text(
-                            'Login',
+                            'Register',
                             textDirection: TextDirection.ltr,
                             style: TextStyle(
                               color: Colors.white,
@@ -103,7 +133,9 @@ class LoginView extends GetView<LoginController> {
                           ),
                         ),
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {}
+                          if (_formKey.currentState!.validate()) {
+                            
+                          }
                         },
                       ),
                     ],
@@ -118,7 +150,7 @@ class LoginView extends GetView<LoginController> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  "Tidak Punya Akun? ",
+                  "Sudah Punya Akun? ",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -126,10 +158,10 @@ class LoginView extends GetView<LoginController> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Get.toNamed(Routes.REGISTER);
+                    Get.toNamed(Routes.LOGIN);
                   },
                   child: const Text(
-                    'Register',
+                    'Login',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16.0,
