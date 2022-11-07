@@ -1,0 +1,35 @@
+name: movie_apps_flutter
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=2.17.2 <3.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.2
+  get: 4.6.5
+  shared_preferences: ^2.0.15
+  http: ^0.13.5
+  flutter: 
+    sdk: flutter
+
+dev_dependencies: 
+  flutter_lints: ^2.0.0
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf
+        - asset: assets/fonts/Montserrat/static/Montserrat-Regular.ttf
+        - asset: assets/fonts/Montserrat/static/Montserrat-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Montserrat/static/Montserrat-Bold.ttf
+          weight: 700
