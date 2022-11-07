@@ -17,6 +17,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test: 
     sdk: flutter
+  flutter_launcher_icons: ^0.10.0
 
 flutter: 
   uses-material-design: true
@@ -33,3 +34,17 @@ flutter:
           style: italic
         - asset: assets/fonts/Montserrat/static/Montserrat-Bold.ttf
           weight: 700
+
+flutter_icons: 
+  android: true
+  ios: true
+  web: 
+    generate: true
+    image_path: 'assets/images/movie-apps-logo-no-bg.png'
+  windows: 
+    generate: true
+    image_path: 'assets/images/movie-apps-logo-no-bg.png'
+    icon_size: 48
+  image_path: 'assets/images/movie-apps-logo.png'
+  adaptive_icon_background: '#000000'
+  adaptive_icon_foreground: 'assets/images/movie-apps-logo-no-bg.png'
