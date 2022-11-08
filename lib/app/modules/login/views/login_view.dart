@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:movie_apps_flutter/app/controllers/auth_controller.dart';
 import 'package:movie_apps_flutter/app/routes/app_pages.dart';
 
 import '../controllers/login_controller.dart';
@@ -9,15 +8,12 @@ import '../controllers/login_controller.dart';
 class LoginView extends GetView<LoginController> {
   LoginView({Key? key}) : super(key: key);
 
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
   final bool _secureText = true;
-  final authC = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.only(right: 28, left: 28, bottom: 50),
@@ -49,19 +45,19 @@ class LoginView extends GetView<LoginController> {
                       ),
                       const SizedBox(height: 18),
                       TextFormField(
-                        autofocus: true,
                         controller: controller.emailController,
+                        autofocus: true,
                         cursorColor: Colors.blue,
                         keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
                           hintText: "Email",
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Email harus diisi!';
-                          }
-                          return null;
-                        },
+                         validator: (emailValue) {
+                            if (emailValue!.isEmpty) {
+                              return 'Please enter your email';
+                            }
+                            return null;
+                          },
                       ),
                       const SizedBox(height: 12),
                       TextFormField(
@@ -72,12 +68,12 @@ class LoginView extends GetView<LoginController> {
                         decoration: const InputDecoration(
                           hintText: "Password",
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Password harus diisi!';
-                          }
-                          return null;
-                        },
+                        validator: (passwordValue) {
+                            if (passwordValue!.isEmpty) {
+                              return 'Please enter your password';
+                            }
+                            return null;
+                          },
                       ),
                       const SizedBox(height: 12),
                       ElevatedButton(
@@ -103,7 +99,9 @@ class LoginView extends GetView<LoginController> {
                           ),
                         ),
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {}
+                          if (_formKey.currentState!.validate()) {
+                            controller.login();
+                          }
                         },
                       ),
                     ],

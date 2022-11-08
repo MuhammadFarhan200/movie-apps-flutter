@@ -15,7 +15,7 @@ class SplashScreenController extends GetxController
     animationInitilization();
     Timer(
       const Duration(seconds: 3),
-      () => Get.offAllNamed(Routes.HOME),
+      () => Get.offAllNamed(Routes.LOGIN),
     );
   }
 

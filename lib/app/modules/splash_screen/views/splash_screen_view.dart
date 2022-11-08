@@ -19,7 +19,9 @@ class SplashScreenView extends GetView<SplashScreenController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Image(
-                    image: const AssetImage('assets/images/movie-apps-logo-no-bg.png'),
+                    image: const AssetImage(
+                      'assets/images/movie-apps-logo-no-bg.png',
+                    ),
                     width: controller.animation.value * 200,
                     height: controller.animation.value * 200,
                   ),

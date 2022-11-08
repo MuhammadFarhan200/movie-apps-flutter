@@ -16,6 +16,14 @@ class HomeView extends GetView<HomeController> {
           image: AssetImage('assets/images/movie-apps-logo-no-bg.png'),
         ),
         centerTitle: false,
+        actions: [
+          IconButton(
+            onPressed: () => controller.confirmLogout(),
+            icon: const Icon(Icons.logout),
+            tooltip: 'Logout',
+          ),
+          const SizedBox(width: 15),
+        ],
       ),
       body: const SafeArea(
         child: Center(

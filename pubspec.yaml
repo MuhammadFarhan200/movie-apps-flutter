@@ -7,9 +7,10 @@ environment:
 
 dependencies: 
   cupertino_icons: ^1.0.2
-  get: 4.6.5
+  get:
   shared_preferences: ^2.0.15
   http: ^0.13.5
+  curved_navigation_bar: ^1.0.3
   flutter: 
     sdk: flutter
 
@@ -43,7 +44,7 @@ flutter_icons:
     image_path: 'assets/images/movie-apps-logo-no-bg.png'
   windows: 
     generate: true
-    image_path: 'assets/images/movie-apps-logo-no-bg.png'
+    image_path: 'assets/images/movie-apps-logo.png'
     icon_size: 48
   image_path: 'assets/images/movie-apps-logo.png'
   adaptive_icon_background: '#000000'

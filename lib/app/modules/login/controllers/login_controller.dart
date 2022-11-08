@@ -7,8 +7,10 @@ import 'package:movie_apps_flutter/app/routes/app_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController {
-  TextEditingController emailController = TextEditingController(text: 'admin@gmail.com');
-  TextEditingController passwordController = TextEditingController(text: 'rahasia');
+  TextEditingController emailController =
+      TextEditingController(text: 'admin@gmail.com');
+  TextEditingController passwordController =
+      TextEditingController(text: 'rahasia');
 
   @override
   void onClose() {
@@ -17,15 +19,13 @@ class LoginController extends GetxController {
     super.onClose();
   }
 
-  bool _secureText = true;
-  void showHide() {
-    _secureText = !_secureText;
+  final _secureText = true.obs;
+  showHide() {
+    return _secureText.value = !_secureText.value;
   }
 
-  void _login() async {
-
-    var email, password;
-    var data = {'email': email, 'password': password};
+  void login() async {
+    var data = {'email': emailController.text, 'password': passwordController.text};
 
     var res = await NetWork().auth(data, '/login');
     var body = json.decode(res.body);
@@ -36,8 +36,12 @@ class LoginController extends GetxController {
       // ignore: use_build_context_synchronously
       Get.offAllNamed(Routes.HOME);
     } else {
-      Get.snackbar('OOPS!', body['message']);
+      Get.snackbar(
+        'OOPS!',
+        body['message'],
+        margin: const EdgeInsets.all(20),
+        animationDuration: const Duration(milliseconds: 300),
+      );
     }
   }
-
 }

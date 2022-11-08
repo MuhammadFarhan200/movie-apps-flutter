@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:movie_apps_flutter/app/routes/app_pages.dart';
 
 import '../controllers/register_controller.dart';
 
 class RegisterView extends GetView<RegisterController> {
   RegisterView({Key? key}) : super(key: key);
-  
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   final _formKey = GlobalKey<FormState>();
   final bool _secureText = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => Get.back(),
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          tooltip: 'Back to Login',
+        ),
+      ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.only(right: 28, left: 28, bottom: 50),
@@ -65,8 +70,7 @@ class RegisterView extends GetView<RegisterController> {
                       TextFormField(
                         controller: controller.emailController,
                         cursorColor: Colors.blue,
-                        keyboardType: TextInputType.text,
-                        obscureText: _secureText,
+                        keyboardType: TextInputType.emailAddress,
                         decoration: const InputDecoration(
                           hintText: "Email",
                         ),
@@ -89,22 +93,6 @@ class RegisterView extends GetView<RegisterController> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Password harus diisi!';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 12),
-                      TextFormField(
-                        controller: controller.confirmPasswordController,
-                        cursorColor: Colors.blue,
-                        keyboardType: TextInputType.text,
-                        obscureText: _secureText,
-                        decoration: const InputDecoration(
-                          hintText: "Confirm Password",
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Confirm Password harus diisi!';
                           }
                           return null;
                         },
@@ -134,7 +122,7 @@ class RegisterView extends GetView<RegisterController> {
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            
+                            controller.register();
                           }
                         },
                       ),
@@ -158,7 +146,7 @@ class RegisterView extends GetView<RegisterController> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Get.toNamed(Routes.LOGIN);
+                    Get.back();
                   },
                   child: const Text(
                     'Login',
