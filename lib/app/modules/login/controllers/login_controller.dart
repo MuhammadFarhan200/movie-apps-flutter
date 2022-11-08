@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_apps_flutter/app/providers/api.dart';
 import 'package:movie_apps_flutter/app/routes/app_pages.dart';
+import 'package:movie_apps_flutter/app/views/bottom_nav_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController {
@@ -35,6 +36,7 @@ class LoginController extends GetxController {
       localStorage.setString('user', json.encode(body['user']));
       // ignore: use_build_context_synchronously
       Get.offAllNamed(Routes.HOME);
+      // Get.to(() => BottomNavView());
     } else {
       Get.snackbar(
         'OOPS!',

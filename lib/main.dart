@@ -66,7 +66,9 @@ class _MyAppState extends State<MyApp> {
           elevation: 0,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.cyanAccent),
+          ),
         ),
       ),
       enableLog: true,

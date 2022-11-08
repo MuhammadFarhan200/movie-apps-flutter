@@ -9,7 +9,10 @@ import 'package:movie_apps_flutter/app/modules/profile/views/profile_view.dart';
 
 class BottomNavView extends StatelessWidget {
   BottomNavView({Key? key}) : super(key: key);
-  final BottomNavController bottomNavC = Get.put(BottomNavController(), permanent: false);
+  final BottomNavController bottomNavC = Get.put(
+    BottomNavController(),
+    permanent: false,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +25,15 @@ class BottomNavView extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
-      bottomNavigationBar: Obx(
-        () => CurvedNavigationBar(
-          color: Colors.cyanAccent,
-          backgroundColor: Colors.transparent,
-          animationCurve: Curves.easeInOut,
-          animationDuration: const Duration(milliseconds: 300),
-          items: items,
-          height: 50,
-          onTap: bottomNavC.changeTabIndex,
-        ),
+      bottomNavigationBar: CurvedNavigationBar(
+        color: Colors.cyanAccent,
+        backgroundColor: Colors.transparent,
+        animationCurve: Curves.easeInOut,
+        animationDuration: const Duration(milliseconds: 300),
+        items: items,
+        height: 50,
+        index: bottomNavC.tabIndex.value,
+        onTap: bottomNavC.changeTabIndex,
       ),
       body: Obx(
         () => IndexedStack(

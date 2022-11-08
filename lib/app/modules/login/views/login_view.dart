@@ -46,7 +46,6 @@ class LoginView extends GetView<LoginController> {
                       const SizedBox(height: 18),
                       TextFormField(
                         controller: controller.emailController,
-                        autofocus: true,
                         cursorColor: Colors.blue,
                         keyboardType: TextInputType.text,
                         decoration: const InputDecoration(

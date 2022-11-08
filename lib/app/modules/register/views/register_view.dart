@@ -52,7 +52,6 @@ class RegisterView extends GetView<RegisterController> {
                       ),
                       const SizedBox(height: 18),
                       TextFormField(
-                        autofocus: true,
                         controller: controller.namaController,
                         cursorColor: Colors.blue,
                         keyboardType: TextInputType.text,
