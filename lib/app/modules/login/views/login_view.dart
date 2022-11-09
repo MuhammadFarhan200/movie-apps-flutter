@@ -82,9 +82,8 @@ class LoginView extends GetView<LoginController> {
                               horizontal: 18, vertical: 10),
                           child: Text(
                             'Login',
-                            textDirection: TextDirection.ltr,
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 18.0,
                               decoration: TextDecoration.none,
                               fontWeight: FontWeight.normal,

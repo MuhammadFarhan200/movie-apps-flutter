@@ -20,6 +20,8 @@ class LoginController extends GetxController {
     super.onClose();
   }
 
+  final isLoading = false.obs;
+
   final _secureText = true.obs;
   showHide() {
     return _secureText.value = !_secureText.value;
@@ -35,8 +37,8 @@ class LoginController extends GetxController {
       localStorage.setString('token', json.encode(body['token']));
       localStorage.setString('user', json.encode(body['user']));
       // ignore: use_build_context_synchronously
-      Get.offAllNamed(Routes.HOME);
-      // Get.to(() => BottomNavView());
+      // Get.offAllNamed(Routes.HOME);
+      Get.offAllNamed(Routes.STARTPAGE);
     } else {
       Get.snackbar(
         'OOPS!',

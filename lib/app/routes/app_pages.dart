@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:movie_apps_flutter/app/views/bottom_nav_view.dart';
 
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
@@ -43,13 +44,17 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MOVIES,
-      page: () => const MoviesView(),
+      page: () => MoviesView(),
       binding: MoviesBinding(),
     ),
     GetPage(
       name: _Paths.PROFILE,
       page: () => const ProfileView(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.STARTPAGE,
+      page: () => BottomNavView(),
     ),
   ];
 }

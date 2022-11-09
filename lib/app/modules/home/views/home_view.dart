@@ -25,11 +25,13 @@ class HomeView extends GetView<HomeController> {
           const SizedBox(width: 15),
         ],
       ),
-      body: const SafeArea(
+      body: SafeArea(
         child: Center(
-          child: Text(
-            'Welcome to home page!',
-            style: TextStyle(fontSize: 24),
+          child: Obx(
+            () => Text(
+              'Welcome to home page, \n ${name}',
+              style: TextStyle(fontSize: 24),
+            ),
           ),
         ),
       ),
