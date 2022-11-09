@@ -44,6 +44,7 @@ class HomeController extends GetxController {
 }
 
 final name = ''.obs;
+final email = ''.obs;
 
 void loadUserData() async {
   SharedPreferences localStorage = await SharedPreferences.getInstance();
@@ -51,5 +52,6 @@ void loadUserData() async {
 
     if (user != null) {
       name.value = user['name'];
+      email.value = user['email'];
     }
 }

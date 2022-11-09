@@ -19,6 +19,7 @@ class ProfileView extends GetView<ProfileController> {
           IconButton(
             onPressed: () => homeC.confirmLogout(),
             icon: const Icon(Icons.logout),
+            tooltip: 'Logout',
           ),
         ],
       ),
@@ -53,7 +54,7 @@ class ProfileView extends GetView<ProfileController> {
                       children: [
                         Icon(Icons.person),
                         SizedBox(width: 10),
-                        Text('Hanztt'),
+                        Text('$name'),
                       ],
                     ),
                     SizedBox(height: 5),
@@ -61,7 +62,7 @@ class ProfileView extends GetView<ProfileController> {
                       children: [
                         Icon(Icons.mail),
                         SizedBox(width: 10),
-                        Text('hanztt123@gmail.com'),
+                        Text('$email'),
                       ],
                     ),
                     SizedBox(height: 10),

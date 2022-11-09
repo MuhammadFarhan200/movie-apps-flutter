@@ -54,7 +54,7 @@ class MoviesView extends StatelessWidget {
                   crossAxisCount: 2,
                   mainAxisSpacing: 15,
                   crossAxisSpacing: 15,
-                  childAspectRatio: 180/250,
+                  childAspectRatio: 3/4,
                   children: movieC.moviesData.value.map<Widget>(
                     (movie) {
                       // return Card(
