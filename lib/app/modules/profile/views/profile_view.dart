@@ -11,6 +11,7 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     final HomeController homeC = Get.put(HomeController());
     return Scaffold(
+      extendBody: true,
       appBar: AppBar(
         leadingWidth: 80,
         title: const Text('Profile'),
@@ -21,6 +22,7 @@ class ProfileView extends GetView<ProfileController> {
             icon: const Icon(Icons.logout),
             tooltip: 'Logout',
           ),
+          const SizedBox(width: 15),
         ],
       ),
       body: SafeArea(
@@ -37,58 +39,65 @@ class ProfileView extends GetView<ProfileController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Center(
+                    const Center(
                       child: Image(
                         image: AssetImage(
-                            'assets/images/user.png'),
+                          'assets/images/user.png',
+                        ),
                         height: 150,
                       ),
                     ),
-                    SizedBox(height: 20,),
-                    Text(
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
                       'About You:',
                       style: TextStyle(fontSize: 18),
                     ),
-                    SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Icon(Icons.person),
-                        SizedBox(width: 10),
-                        Text('$name'),
-                      ],
+                    const SizedBox(height: 10),
+                    Obx(
+                      () => Row(
+                        children: [
+                          const Icon(Icons.person),
+                          const SizedBox(width: 10),
+                          Text(homeC.name.value),
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Icon(Icons.mail),
-                        SizedBox(width: 10),
-                        Text('$email'),
-                      ],
+                    const SizedBox(height: 5),
+                    Obx(
+                      () => Row(
+                        children: [
+                          const Icon(Icons.mail),
+                          const SizedBox(width: 10),
+                          Text(homeC.email.value),
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 10),
-                    Text(
+                    const SizedBox(height: 10),
+                    const Text(
                       'Other:',
                       style: TextStyle(fontSize: 18),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
-                      children: [
+                      children: const [
                         Icon(Icons.phone),
                         SizedBox(width: 10),
                         Text('Contact Us'),
                       ],
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Row(
-                      children: [
+                      children: const [
                         Icon(Icons.privacy_tip),
                         SizedBox(width: 10),
                         Text('Privacy Policy'),
                       ],
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Row(
-                      children: [
+                      children: const [
                         Icon(Icons.wysiwyg_sharp),
                         SizedBox(width: 10),
                         Text('Trems and Conditions'),

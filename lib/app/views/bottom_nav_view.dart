@@ -8,13 +8,16 @@ import 'package:movie_apps_flutter/app/modules/home/views/home_view.dart';
 import 'package:movie_apps_flutter/app/modules/movies/views/movies_view.dart';
 import 'package:movie_apps_flutter/app/modules/profile/views/profile_view.dart';
 
+import '../models/movie-model.dart';
+
 class BottomNavView extends StatelessWidget {
-  BottomNavView({Key? key}) : super(key: key);
+  BottomNavView({Key? key, required this.movie}) : super(key: key);
 
   final BottomNavController bottomNavC = Get.put(
     BottomNavController(),
     permanent: false,
   );
+  MovieModel movie;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +27,11 @@ class BottomNavView extends StatelessWidget {
         return SafeArea(
           child: Scaffold(
             extendBody: true,
-            extendBodyBehindAppBar: true,
             body: SafeArea(
               child: IndexedStack(
                 index: bottomNavC.tabIndex.value,
                 children: [
-                  HomeView(),
+                  HomeView(movie: movie.id),
                   MoviesView(),
                   ProfileView(),
                 ],

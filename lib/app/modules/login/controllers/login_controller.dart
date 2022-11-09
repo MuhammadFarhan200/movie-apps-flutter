@@ -28,6 +28,7 @@ class LoginController extends GetxController {
   }
 
   void login() async {
+    isLoading.value = !isLoading.value;
     var data = {'email': emailController.text, 'password': passwordController.text};
 
     var res = await NetWork().auth(data, '/login');
@@ -46,6 +47,7 @@ class LoginController extends GetxController {
         margin: const EdgeInsets.all(20),
         animationDuration: const Duration(milliseconds: 300),
       );
+      isLoading.value = !isLoading.value;
     }
   }
 }

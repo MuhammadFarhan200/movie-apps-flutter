@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controllers/movies_controller.dart';
-import 'package:shimmer/shimmer.dart';
 
 class MoviesView extends StatelessWidget {
   MoviesView({Key? key}) : super(key: key);
@@ -17,60 +16,24 @@ class MoviesView extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Obx(
             () {
               if (movieC.isLoading.value) {
-                return Shimmer.fromColors(
-                  baseColor: Colors.grey[400]!,
-                  highlightColor: Colors.grey[300]!,
-                  child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 180/250,
-                    ),
-                    itemCount: 6,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) => Container(
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                );
+                return const Center(child: CircularProgressIndicator());
               } else if (movieC.isError.value) {
                 return Text(
                   "Error: ${movieC.errmsg.value.capitalize}",
                 );
-              } else //if loading == true, show progress indicator
-                // ignore: curly_braces_in_flow_control_structures
+              } else {}
                 return GridView.count(
+                  primary: false,
                   crossAxisCount: 2,
-                  mainAxisSpacing: 15,
-                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
                   childAspectRatio: 3/4,
                   children: movieC.moviesData.value.map<Widget>(
                     (movie) {
-                      // return Card(
-                      //   child: ListTile(
-                      //     onTap: () {},
-                      //     leading: CircleAvatar(
-                      //       backgroundImage: NetworkImage(movie.cover),
-                      //     ),
-                      //     title: Text(movie.judul),
-                      //     subtitle: Text(
-                      //       movie.sinopsis,
-                      //       maxLines: 2,
-                      //       overflow: TextOverflow.ellipsis,
-                      //     ),
-                      //   ),
-                      // );
                       return Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
@@ -83,17 +46,20 @@ class MoviesView extends StatelessWidget {
                           child: Column(
                             children: [
                               ClipRRect(
-                                borderRadius: BorderRadius.only(
+                                borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(10),
                                   topRight: Radius.circular(10),
                                 ),
-                                child: Image(
-                                  image: new NetworkImage(
+                                child: Container(
+                                  height: 180,
+                                  decoration: const BoxDecoration(
+                                    image: DecorationImage(
+                                      image:  NetworkImage(
                                     'https://occ-0-2430-2433.1.nflxso.net/dnm/api/v6/evlCitJPPCVCry0BZlEFb5-QjKc/AAAABboRq3GJ0wSZ0FqeK1EwuUPH5iTCEWqF37LyvXO1Z-XBAht4LA4ggwfnfKAhMXtz-wUmGmo9GM7Hhk9_Ily1BMiNtqyao0zVPo3NKR320IuCHkQxey591Rbyu2zB3g.jpg',
                                   ),
-                                  height: 230,
-                                  width: double.infinity,
                                   fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
                               ),
                               Padding(

@@ -2,11 +2,11 @@
 
 import 'dart:convert';
 
-List<MovieModel> MovieModelFromMap(String str) => List<MovieModel>.from(
+List<MovieModel> movieModelFromMap(String str) => List<MovieModel>.from(
       json.decode(str).map((x) => MovieModel.fromMap(x)),
     );
 
-String MovieModelToMap(List<MovieModel> data) => json.encode(
+String movieModelToMap(List<MovieModel> data) => json.encode(
       List<dynamic>.from(
         data.map((x) => x.toMap()),
       ),

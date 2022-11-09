@@ -51,12 +51,12 @@ class LoginView extends GetView<LoginController> {
                         decoration: const InputDecoration(
                           hintText: "Email",
                         ),
-                         validator: (emailValue) {
-                            if (emailValue!.isEmpty) {
-                              return 'Please enter your email';
-                            }
-                            return null;
-                          },
+                        validator: (emailValue) {
+                          if (emailValue!.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 12),
                       TextFormField(
@@ -68,26 +68,30 @@ class LoginView extends GetView<LoginController> {
                           hintText: "Password",
                         ),
                         validator: (passwordValue) {
-                            if (passwordValue!.isEmpty) {
-                              return 'Please enter your password';
-                            }
-                            return null;
-                          },
+                          if (passwordValue!.isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 12),
                       ElevatedButton(
                         // ignore: sort_child_properties_last
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 18, vertical: 10),
-                          child: Text(
-                            'Login',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18.0,
-                              decoration: TextDecoration.none,
-                              fontWeight: FontWeight.normal,
-                            ),
+                          child: Obx(
+                            () => controller.isLoading.value
+                                ? const SizedBox(height: 24, width: 24, child: CircularProgressIndicator(),)
+                                : const Text(
+                                    'Login',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18.0,
+                                      decoration: TextDecoration.none,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  ),
                           ),
                         ),
                         style: ElevatedButton.styleFrom(

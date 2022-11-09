@@ -19,7 +19,10 @@ class RegisterController extends GetxController {
     super.onClose();
   }
 
+  final isLoading = false.obs;
+
   void register() async {
+    isLoading.value = !isLoading.value;
     var data = {
       'name': namaController.text,
       'email': emailController.text,
@@ -52,5 +55,6 @@ class RegisterController extends GetxController {
       animationDuration: const Duration(milliseconds: 300),
       margin: const EdgeInsets.all(20),
     );
+    isLoading.value = !isLoading.value;
   }
 }

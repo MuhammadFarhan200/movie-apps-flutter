@@ -14,7 +14,7 @@ class MovieController extends GetxController {
 
   @override
   void onInit() {
-    getUser();
+    getMovie();
     super.onInit();
   }
 
@@ -28,7 +28,7 @@ class MovieController extends GetxController {
     super.onClose();
   }
 
-  Future<List<MovieModel>> getUser() async {
+  Future<List<MovieModel>> getMovie() async {
     isLoading(true);
     try {
       final result = await ApiClient().getData(ApiConst.path);

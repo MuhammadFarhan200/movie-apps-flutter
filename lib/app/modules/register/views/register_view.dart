@@ -106,7 +106,7 @@ class RegisterView extends GetView<RegisterController> {
                             'Register',
                             textDirection: TextDirection.ltr,
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 18.0,
                               decoration: TextDecoration.none,
                               fontWeight: FontWeight.normal,

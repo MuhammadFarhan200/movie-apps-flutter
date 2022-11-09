@@ -35,23 +35,23 @@ class HomeController extends GetxController {
       titlePadding: const EdgeInsets.only(top: 20),
     );
   }
-  
+
   @override
   void onInit() {
     super.onInit();
     loadUserData();
   }
-}
 
-final name = ''.obs;
-final email = ''.obs;
+  final name = ''.obs;
+  final email = ''.obs;
 
-void loadUserData() async {
-  SharedPreferences localStorage = await SharedPreferences.getInstance();
+  void loadUserData() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
     var user = jsonDecode(localStorage.getString('user') ?? '');
 
     if (user != null) {
       name.value = user['name'];
       email.value = user['email'];
     }
+  }
 }

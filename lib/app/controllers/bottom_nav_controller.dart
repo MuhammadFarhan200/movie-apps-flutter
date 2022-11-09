@@ -7,14 +7,4 @@ class BottomNavController extends GetxController {
     tabIndex.value = index;
     update();
   }
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }
