@@ -11,13 +11,12 @@ import 'package:movie_apps_flutter/app/modules/profile/views/profile_view.dart';
 import '../models/movie-model.dart';
 
 class BottomNavView extends StatelessWidget {
-  BottomNavView({Key? key, required this.movie}) : super(key: key);
+  BottomNavView({Key? key}) : super(key: key);
 
   final BottomNavController bottomNavC = Get.put(
     BottomNavController(),
     permanent: false,
   );
-  MovieModel movie;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +30,7 @@ class BottomNavView extends StatelessWidget {
               child: IndexedStack(
                 index: bottomNavC.tabIndex.value,
                 children: [
-                  HomeView(movie: movie.id),
+                  HomeView(),
                   MoviesView(),
                   ProfileView(),
                 ],

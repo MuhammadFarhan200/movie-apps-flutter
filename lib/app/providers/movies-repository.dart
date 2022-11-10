@@ -12,4 +12,14 @@ class ApiClient {
       throw Exception(e.message);
     }
   }
+
+  final dio = Dio(BaseOptions(baseUrl: ApiConst.baseUrl));
+  Future<dynamic> getMovieDetails({required int movieId}) async {
+    final response = await dio.get('/movies/$movieId');
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      return null;
+    }
+  }
 }

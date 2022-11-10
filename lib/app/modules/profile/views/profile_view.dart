@@ -10,6 +10,7 @@ class ProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     final HomeController homeC = Get.put(HomeController());
+    Get.lazyPut(()=>ProfileController());
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
@@ -18,7 +19,7 @@ class ProfileView extends GetView<ProfileController> {
         centerTitle: false,
         actions: [
           IconButton(
-            onPressed: () => homeC.confirmLogout(),
+            onPressed: () => controller.confirmLogout(),
             icon: const Icon(Icons.logout),
             tooltip: 'Logout',
           ),

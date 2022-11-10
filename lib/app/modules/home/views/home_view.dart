@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movie_apps_flutter/app/models/movie-model.dart';
 import 'package:movie_apps_flutter/app/modules/detail/controllers/detail_controller.dart';
+import 'package:movie_apps_flutter/app/modules/detail/views/detail_view.dart';
 import 'package:movie_apps_flutter/app/modules/movies/controllers/movies_controller.dart';
 
 import '../../../routes/app_pages.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  HomeView({Key? key, required this.movie}) : super(key: key);
-  MovieModel movie;
+  const HomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final movieC = Get.put(MovieController());
@@ -65,7 +65,7 @@ class HomeView extends GetView<HomeController> {
                         enlargeCenterPage: true,
                         enableInfiniteScroll: true,
                         autoPlay: true,
-                        aspectRatio: 2.0,
+                        height: Get.height * 0.30,
                         enlargeStrategy: CenterPageEnlargeStrategy.scale,
                         autoPlayAnimationDuration:
                             const Duration(milliseconds: 1000),
@@ -83,67 +83,76 @@ class HomeView extends GetView<HomeController> {
                           .toList(),
                     ),
                   ),
-                  GridView.count(
+                  ListView.separated(
                     padding: const EdgeInsets.all(20),
-                    primary: false,
-                    crossAxisCount: 2,
                     shrinkWrap: true,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: 3 / 4,
-                    children: movieC.moviesData.value.map<Widget>(
-                      (movie) {
-                        return Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          color: const Color.fromARGB(255, 23, 23, 43),
-                          child: InkWell(
-                            onTap: () async {
-                              Get.lazyPut<DetailController>(
-                                tag: '${movie.id}',
-                                () => DetailController(movieId: '${movie.id}'),
-                              );
-                              Get.toNamed(
-                                Routes.DETAIL,
-                                arguments: '${movie.id}',
-                              );
-                            },
-                            borderRadius: BorderRadius.circular(10),
-                            child: Column(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10),
-                                  ),
-                                  child: Container(
-                                    height: 180,
-                                    decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                        image: NetworkImage(
-                                          'https://occ-0-2430-2433.1.nflxso.net/dnm/api/v6/evlCitJPPCVCry0BZlEFb5-QjKc/AAAABboRq3GJ0wSZ0FqeK1EwuUPH5iTCEWqF37LyvXO1Z-XBAht4LA4ggwfnfKAhMXtz-wUmGmo9GM7Hhk9_Ily1BMiNtqyao0zVPo3NKR320IuCHkQxey591Rbyu2zB3g.jpg',
-                                        ),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Text(
-                                    movie.judul,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
+                    physics: const ScrollPhysics(),
+                    itemCount: controller.movies.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Get.to(DetailView(movie: controller.movies[index]));
+                        },
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image(
+                                image: const NetworkImage(
+                                    'https://occ-0-2430-2433.1.nflxso.net/dnm/api/v6/evlCitJPPCVCry0BZlEFb5-QjKc/AAAABboRq3GJ0wSZ0FqeK1EwuUPH5iTCEWqF37LyvXO1Z-XBAht4LA4ggwfnfKAhMXtz-wUmGmo9GM7Hhk9_Ily1BMiNtqyao0zVPo3NKR320IuCHkQxey591Rbyu2zB3g.jpg'),
+                                fit: BoxFit.cover,
+                                height: Get.height * 0.30,
+                                width: Get.width * 0.95,
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    ).toList(),
-                  ),
+                            Positioned(
+                              bottom: 0,
+                              left: 0,
+                              right: 0,
+                              child: Container(
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10),
+                                  ),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.topCenter,
+                                    colors: [
+                                      Colors.black.withOpacity(0.7),
+                                      Colors.transparent,
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 12,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                ),
+                                child: Text(
+                                  controller.movies[index].judul,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const SizedBox(height: 20);
+                    },
+                  )
                 ],
               );
             },

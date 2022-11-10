@@ -5,33 +5,35 @@ import '../../../providers/dio-helper.dart';
 import '../../../providers/movies-repository.dart';
 
 class DetailController extends GetxController {
-  DetailController({required this.movieId});
+  int movieId = Get.arguments[0];
+  final movieApi = ApiClient();
 
-  late final String movieId;
-  RxBool isAwaitDetailMovie = false.obs;
-  Rx<MovieModel> detailMovie = MovieModel(
-    id: '',
-    judul: '',
-    sinopsis: '',
-    background: '',
-    cover: '',
-    durasi: '',
-    tahunRilis: '',
-    genreFilm: '',
-  ).obs;
-
-  Future<void> getDetailMovie({
-    required String id,
-    bool isLoading = true,
-  }) async {
-    if (isLoading) isAwaitDetailMovie.value = true;
-
-    final result = await ApiClient().getData(ApiConst.path + '/${id}');
-  }
+  bool isLoading = true;
+  List<MovieModel> movieData = [
+    MovieModel(
+      id: '',
+      judul: '',
+      sinopsis: '',
+      background: '',
+      cover: '',
+      durasi: '',
+      tahunRilis: '',
+      genreFilm: '',
+    ),
+  ];
 
   @override
-  Future<void> onInit() async {
-    await getDetailMovie(id: movieId);
+  void onInit() {
     super.onInit();
+    fetchMovieDetails();
+  }
+
+  void fetchMovieDetails() async {
+    var response = await movieApi.getMovieDetails(movieId: movieId);
+    if (response.statusCode == 200) {
+      movieData.add(MovieModel.fromMap(response));
+      isLoading = false;
+      update();
+    }
   }
 }

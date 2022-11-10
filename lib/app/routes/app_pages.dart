@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:movie_apps_flutter/app/models/movie-model.dart';
+import 'package:movie_apps_flutter/app/modules/detail/controllers/detail_controller.dart';
 
 import '../modules/detail/bindings/detail_binding.dart';
 import '../modules/detail/views/detail_view.dart';
@@ -20,15 +21,14 @@ import '../views/bottom_nav_view.dart';
 part 'app_routes.dart';
 
 class AppPages {
-  AppPages._(this.movie);
+  AppPages._();
 
-  MovieModel movie;
   static const INITIAL = Routes.SPLASH_SCREEN;
 
   static final routes = [
     GetPage(
       name: _Paths.HOME,
-      page: () => HomeView(movie: ),
+      page: () => HomeView(),
       binding: HomeBinding(),
     ),
     GetPage(
@@ -58,12 +58,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.STARTPAGE,
-      page: () => BottomNavView(movie: ),
+      page: () => BottomNavView(),
     ),
-    GetPage(
-      name: _Paths.DETAIL,
-      page: () => DetailView(),
-      binding: DetailBinding(),
-    ),
+    // GetPage(
+    //   name: _Paths.DETAIL,
+    //   page: () => DetailView(),
+    //   binding: DetailBinding(),
+    // ),
   ];
 }

@@ -4,14 +4,11 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_apps_flutter/app/providers/api.dart';
 import 'package:movie_apps_flutter/app/routes/app_pages.dart';
-import 'package:movie_apps_flutter/app/views/bottom_nav_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController {
-  TextEditingController emailController =
-      TextEditingController(text: 'admin@gmail.com');
-  TextEditingController passwordController =
-      TextEditingController(text: 'rahasia');
+  TextEditingController emailController = TextEditingController(text: 'admin@gmail.com');
+  TextEditingController passwordController = TextEditingController(text: 'rahasia');
 
   @override
   void onClose() {
