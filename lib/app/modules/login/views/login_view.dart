@@ -82,7 +82,15 @@ class LoginView extends GetView<LoginController> {
                               horizontal: 18, vertical: 10),
                           child: Obx(
                             () => controller.isLoading.value
-                                ? const SizedBox(height: 24, width: 24, child: CircularProgressIndicator(),)
+                                ? const Text(
+                                    'Processing...',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18.0,
+                                      decoration: TextDecoration.none,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                  )
                                 : const Text(
                                     'Login',
                                     style: TextStyle(

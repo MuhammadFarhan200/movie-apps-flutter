@@ -28,6 +28,7 @@ class ProfileView extends GetView<ProfileController> {
       ),
       body: SafeArea(
         child: ListView(
+          primary: false,
           padding: const EdgeInsets.all(20),
           children: [
             Card(

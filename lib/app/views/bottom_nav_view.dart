@@ -26,6 +26,7 @@ class BottomNavView extends StatelessWidget {
         return SafeArea(
           child: Scaffold(
             extendBody: true,
+            extendBodyBehindAppBar: true,
             body: SafeArea(
               child: IndexedStack(
                 index: bottomNavC.tabIndex.value,

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:movie_apps_flutter/app/modules/detail/views/detail_view.dart';
+import 'package:movie_apps_flutter/app/modules/home/controllers/home_controller.dart';
 
 import '../controllers/movies_controller.dart';
 
 class MoviesView extends StatelessWidget {
   MoviesView({Key? key}) : super(key: key);
   final MovieController movieC = Get.put(MovieController());
+  final HomeController homeC = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,99 +29,46 @@ class MoviesView extends StatelessWidget {
                   "Error: ${movieC.errmsg.value.capitalize}",
                 );
               } else {}
-              return GridView.count(
+              return GridView.builder(
                 primary: false,
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                childAspectRatio: 3 / 3.5,
-                children: movieC.moviesData.value.map<Widget>(
-                  (movie) {
-                    return InkWell(
-                      onTap: () {},
-                      onLongPress: () {},
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: 3 / 4,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 15,
+                  crossAxisCount: 2,
+                ),
+                itemCount: movieC.moviesData.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(DetailView(movie: movieC.moviesData[index]));
+                    },
+                    child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10),
-                            ),
-                            child: Stack(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image(
-                                    image: const NetworkImage(
-                                        'https://occ-0-2430-2433.1.nflxso.net/dnm/api/v6/evlCitJPPCVCry0BZlEFb5-QjKc/AAAABboRq3GJ0wSZ0FqeK1EwuUPH5iTCEWqF37LyvXO1Z-XBAht4LA4ggwfnfKAhMXtz-wUmGmo9GM7Hhk9_Ily1BMiNtqyao0zVPo3NKR320IuCHkQxey591Rbyu2zB3g.jpg'),
-                                    fit: BoxFit.cover,
-                                    height: Get.height * 0.40,
-                                    width: Get.width,
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 0,
-                                  left: 0,
-                                  right: 0,
-                                  child: Container(
-                                    width: Get.width,
-                                    height: 60,
-                                    decoration: const BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(10),
-                                        bottomRight: Radius.circular(10),
-                                      ),
-                                      color: Colors.black54,
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  left: 0,
-                                  right: 0,
-                                  bottom: 12,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 12,
-                                    ),
-                                    child: Text(
-                                      movie.judul,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.white,
-                                      ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            // child: Container(
-                            //   height: 180,
-                            //   decoration: const BoxDecoration(
-                            //     image: DecorationImage(
-                            //       image:  NetworkImage(
-                            //     'https://occ-0-2430-2433.1.nflxso.net/dnm/api/v6/evlCitJPPCVCry0BZlEFb5-QjKc/AAAABboRq3GJ0wSZ0FqeK1EwuUPH5iTCEWqF37LyvXO1Z-XBAht4LA4ggwfnfKAhMXtz-wUmGmo9GM7Hhk9_Ily1BMiNtqyao0zVPo3NKR320IuCHkQxey591Rbyu2zB3g.jpg',
-                            //   ),
-                            //   fit: BoxFit.cover,
-                            //     ),
-                            //   ),
-                            // ),
-                          ),
-                          // Padding(
-                          //   padding: const EdgeInsets.all(10.0),
-                          //   child: Text(
-                          //     movie.judul,
-                          //     maxLines: 2,
-                          //     overflow: TextOverflow.ellipsis,
-                          //   ),
+                      child: GridTile(
+                        child: Image(
+                          image: NetworkImage(homeC.imageSliders[movieC.moviesData[index].id - 1]),
+                          // image: NetworkImage(
+                          //   'https://occ-0-2430-2433.1.nflxso.net/dnm/api/v6/evlCitJPPCVCry0BZlEFb5-QjKc/AAAABboRq3GJ0wSZ0FqeK1EwuUPH5iTCEWqF37LyvXO1Z-XBAht4LA4ggwfnfKAhMXtz-wUmGmo9GM7Hhk9_Ily1BMiNtqyao0zVPo3NKR320IuCHkQxey591Rbyu2zB3g.jpg',
                           // ),
-                        ],
+                          fit: BoxFit.cover,
+                        ),
+                        footer: Container(
+                          height: 50,
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          color: Colors.black.withOpacity(0.7),
+                          child: Center(
+                            child: Text(
+                              '${movieC.moviesData[index].judul}',
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                            ),
+                          ),
+                        ),
                       ),
-                    );
-                  },
-                ).toList(),
+                    ),
+                  );
+                },
               );
             },
           ),

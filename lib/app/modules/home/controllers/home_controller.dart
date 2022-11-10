@@ -16,6 +16,11 @@ class HomeController extends GetxController {
   final isLoading = true.obs;
   var isError = false.obs;
   var errmsg = ''.obs;
+  final List<String> imageSliders = [
+      'https://cinemapoetica.com/wp-content/uploads/2021/08/ali-ratu-ratu-queens_hlgh.jpg',
+      'https://wallpaperboat.com/wp-content/uploads/2021/12/19/79926/spider-man-no-way-home-12-920x518.jpg',
+      'https://wallpapercave.com/dwp2x/wp7275111.jpg',
+    ];
 
   @override
   void onInit() {

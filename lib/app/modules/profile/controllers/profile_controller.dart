@@ -32,7 +32,7 @@ class ProfileController extends GetxController {
         color: Colors.white,
       ),
       backgroundColor: const Color.fromARGB(255, 15, 15, 29),
-      contentPadding: const EdgeInsets.only(bottom: 30, top: 20, left: 30, right: 30),
+      contentPadding: const EdgeInsets.only(bottom: 20, top: 20, left: 30, right: 30),
       titlePadding: const EdgeInsets.only(top: 20),
     );
   }

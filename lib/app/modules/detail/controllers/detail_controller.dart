@@ -5,35 +5,34 @@ import '../../../providers/dio-helper.dart';
 import '../../../providers/movies-repository.dart';
 
 class DetailController extends GetxController {
-  int movieId = Get.arguments[0];
-  final movieApi = ApiClient();
+  // final movieApi = ApiClient();
+  // int movieId = Get.parameters.;
 
-  bool isLoading = true;
-  List<MovieModel> movieData = [
-    MovieModel(
-      id: '',
-      judul: '',
-      sinopsis: '',
-      background: '',
-      cover: '',
-      durasi: '',
-      tahunRilis: '',
-      genreFilm: '',
-    ),
-  ];
+  // List<MovieModel> movieData = [
+  //   MovieModel(
+  //     id: '',
+  //     judul: '',
+  //     sinopsis: '',
+  //     background: '',
+  //     cover: '',
+  //     durasi: '',
+  //     tahunRilis: '',
+  //     genreFilm: '',
+  //   ),
+  // ];
 
-  @override
-  void onInit() {
-    super.onInit();
-    fetchMovieDetails();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   fetchMovieDetails();
+  // }
 
-  void fetchMovieDetails() async {
-    var response = await movieApi.getMovieDetails(movieId: movieId);
-    if (response.statusCode == 200) {
-      movieData.add(MovieModel.fromMap(response));
-      isLoading = false;
-      update();
-    }
-  }
+  // void fetchMovieDetails() async {
+  //   var response = await movieApi.getMovieDetails(movieId: movieId);
+  //   if (response.statusCode == 200) {
+  //     movieData.add(MovieModel.fromMap(response));
+  //     isLoading = false;
+  //     update();
+  //   }
+  // }
 }

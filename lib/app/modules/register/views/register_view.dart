@@ -99,19 +99,29 @@ class RegisterView extends GetView<RegisterController> {
                       const SizedBox(height: 12),
                       ElevatedButton(
                         // ignore: sort_child_properties_last
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 18, vertical: 10),
-                          child: Text(
-                            'Register',
-                            textDirection: TextDirection.ltr,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18.0,
-                              decoration: TextDecoration.none,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
+                          child: Obx(() => controller.isLoading.value
+                              ? const Text(
+                                  'Processing...',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18.0,
+                                    decoration: TextDecoration.none,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                )
+                              : const Text(
+                                  'Register',
+                                  textDirection: TextDirection.ltr,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18.0,
+                                    decoration: TextDecoration.none,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                )),
                         ),
                         style: ElevatedButton.styleFrom(
                           // primary: Colors.blueAccent,

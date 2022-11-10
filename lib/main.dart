@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: MaterialStateProperty.all(Colors.cyanAccent),
           ),
         ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(backgroundColor: Colors.transparent),
       ),
       enableLog: true,
       defaultTransition: Transition.cupertino,
