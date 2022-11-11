@@ -8,8 +8,6 @@ import 'package:movie_apps_flutter/app/modules/home/views/home_view.dart';
 import 'package:movie_apps_flutter/app/modules/movies/views/movies_view.dart';
 import 'package:movie_apps_flutter/app/modules/profile/views/profile_view.dart';
 
-import '../models/movie-model.dart';
-
 class BottomNavView extends StatelessWidget {
   BottomNavView({Key? key}) : super(key: key);
 
@@ -33,7 +31,7 @@ class BottomNavView extends StatelessWidget {
                 children: [
                   HomeView(),
                   MoviesView(),
-                  ProfileView(),
+                  const ProfileView(),
                 ],
               ),
             ),
@@ -46,12 +44,8 @@ class BottomNavView extends StatelessWidget {
               animationCurve: Curves.easeInOut,
               animationDuration: const Duration(milliseconds: 300),
               items: [
-                bottomNavItems(
-                  icon: CupertinoIcons.home,
-                ),
-                bottomNavItems(
-                  icon: CupertinoIcons.film,
-                ),
+                bottomNavItems(icon: CupertinoIcons.home),
+                bottomNavItems(icon: CupertinoIcons.film),
                 bottomNavItems(icon: CupertinoIcons.person),
               ],
             ),

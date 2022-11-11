@@ -24,12 +24,12 @@ class MovieModel {
     required this.genreFilm,
   });
 
-  var id;
-  var judul;
-  var sinopsis;
-  var background;
-  var cover;
-  var durasi;
+  int id;
+  String judul;
+  String sinopsis;
+  String background;
+  String cover;
+  int durasi;
   var tahunRilis;
   var genreFilm;
 

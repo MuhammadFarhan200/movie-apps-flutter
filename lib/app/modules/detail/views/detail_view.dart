@@ -20,6 +20,7 @@ class DetailView extends StatelessWidget {
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
               SliverAppBar(
+                backgroundColor: Colors.black.withOpacity(0.5),
                 leading: SizedBox(
                   width: 50,
                   child: IconButton(
@@ -36,9 +37,6 @@ class DetailView extends StatelessWidget {
                     children: [
                       Image(
                         image: AssetImage(homeC.imageSliders[movie.id - 1]),
-                        // image: const NetworkImage(
-                        //   'https://occ-0-2430-2433.1.nflxso.net/dnm/api/v6/evlCitJPPCVCry0BZlEFb5-QjKc/AAAABboRq3GJ0wSZ0FqeK1EwuUPH5iTCEWqF37LyvXO1Z-XBAht4LA4ggwfnfKAhMXtz-wUmGmo9GM7Hhk9_Ily1BMiNtqyao0zVPo3NKR320IuCHkQxey591Rbyu2zB3g.jpg',
-                        // ),
                         fit: BoxFit.cover,
                         width: Get.width,
                         height: Get.height,
