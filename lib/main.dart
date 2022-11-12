@@ -16,13 +16,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
-        fontFamily: 'Montserrat',
+        fontFamily: 'Ubuntu',
         scaffoldBackgroundColor: const Color.fromARGB(255, 11, 11, 20),
         dialogTheme: const DialogTheme(
-          contentTextStyle: TextStyle(fontFamily: 'Montserrat'),
+          contentTextStyle: TextStyle(fontFamily: 'Ubuntu'),
         ),
         snackBarTheme: const SnackBarThemeData(
-          contentTextStyle: TextStyle(fontFamily: 'Montserrat'),
+          contentTextStyle: TextStyle(fontFamily: 'Ubuntu'),
         ),
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.transparent,
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       defaultTransition: Transition.cupertino,
       opaqueRoute: Get.isOpaqueRouteDefault,
       popGesture: Get.isPopGestureEnable,
-      transitionDuration: Get.defaultTransitionDuration,
+      transitionDuration: const Duration(milliseconds: 600),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
     );

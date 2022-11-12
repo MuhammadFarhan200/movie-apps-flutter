@@ -60,7 +60,7 @@ class RegisterView extends GetView<RegisterController> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Nama harus diisi!';
+                            return 'Masukkan nama Anda!';
                           }
                           return null;
                         },
@@ -75,7 +75,7 @@ class RegisterView extends GetView<RegisterController> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Email harus diisi!';
+                            return 'Masukkan email Anda!';
                           }
                           return null;
                         },
@@ -91,7 +91,7 @@ class RegisterView extends GetView<RegisterController> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Password harus diisi!';
+                            return 'Masukkan password Anda!';
                           }
                           return null;
                         },
@@ -153,8 +153,8 @@ class RegisterView extends GetView<RegisterController> {
                     fontSize: 16,
                   ),
                 ),
-                TextButton(
-                  onPressed: () {
+                InkWell(
+                  onTap: () {
                     Get.back();
                   },
                   child: const Text(

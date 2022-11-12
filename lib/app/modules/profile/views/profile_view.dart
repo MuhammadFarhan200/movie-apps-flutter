@@ -15,7 +15,7 @@ class ProfileView extends GetView<ProfileController> {
       extendBody: true,
       appBar: AppBar(
         leadingWidth: 80,
-        title: const Text('Profile'),
+        title: const Text(' Profile'),
         centerTitle: false,
         actions: [
           IconButton(

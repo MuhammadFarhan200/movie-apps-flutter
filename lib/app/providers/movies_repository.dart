@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:movie_apps_flutter/app/providers/dio-helper.dart';
+import 'package:movie_apps_flutter/app/providers/dio_helper.dart';
 
 class ApiClient {
   Future getData(String path) async {

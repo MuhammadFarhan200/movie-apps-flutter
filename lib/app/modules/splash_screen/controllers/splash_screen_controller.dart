@@ -30,5 +30,6 @@ class SplashScreenController extends GetxController
     ).obs.value;
     animation.addListener(() => update());
     animationController.forward();
+    animationController.removeListener(() { });
   }
 }

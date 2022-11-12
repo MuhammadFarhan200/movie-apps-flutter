@@ -52,8 +52,9 @@ class LoginView extends GetView<LoginController> {
                           hintText: "Email",
                         ),
                         validator: (emailValue) {
-                          if (emailValue!.isEmpty) {
-                            return 'Please enter your email';
+                          if (emailValue!.isEmpty || !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(emailValue)) {
+                            return 'Masukkan email Anda!';
                           }
                           return null;
                         },
@@ -69,7 +70,7 @@ class LoginView extends GetView<LoginController> {
                         ),
                         validator: (passwordValue) {
                           if (passwordValue!.isEmpty) {
-                            return 'Please enter your password';
+                            return 'Masukkan password Anda!';
                           }
                           return null;
                         },
@@ -132,8 +133,8 @@ class LoginView extends GetView<LoginController> {
                     fontSize: 16,
                   ),
                 ),
-                TextButton(
-                  onPressed: () {
+                InkWell(
+                  onTap: () {
                     Get.toNamed(Routes.REGISTER);
                   },
                   child: const Text(

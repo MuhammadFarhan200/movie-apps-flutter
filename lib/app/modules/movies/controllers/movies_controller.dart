@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:movie_apps_flutter/app/models/movie-model.dart';
-import 'package:movie_apps_flutter/app/providers/dio-helper.dart';
-import 'package:movie_apps_flutter/app/providers/movies-repository.dart';
+import 'package:movie_apps_flutter/app/models/movie_model.dart';
+import 'package:movie_apps_flutter/app/providers/dio_helper.dart';
+import 'package:movie_apps_flutter/app/providers/movies_repository.dart';
 
 class MovieController extends GetxController {
   var isLoading = true.obs;
@@ -16,16 +16,6 @@ class MovieController extends GetxController {
   void onInit() {
     getMovie();
     super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 
   Future<List<MovieModel>> getMovie() async {

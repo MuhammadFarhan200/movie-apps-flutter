@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:movie_apps_flutter/app/controllers/bottom_nav_controller.dart';
 import 'package:movie_apps_flutter/app/modules/detail/bindings/detail_binding.dart';
 import 'package:movie_apps_flutter/app/modules/detail/views/detail_view.dart';
 import 'package:movie_apps_flutter/app/modules/home/controllers/home_controller.dart';
@@ -12,9 +13,11 @@ import '../controllers/movies_controller.dart';
 
 class MoviesView extends StatelessWidget {
   MoviesView({Key? key}) : super(key: key);
-  final MovieController movieC = Get.put(MovieController());
-  final HomeController homeC = Get.put(HomeController());
-  final ProfileController profileC = Get.put(ProfileController());
+  final movieC = Get.put(MovieController());
+  final homeC = Get.put(HomeController());
+  final profileC = Get.put(ProfileController());
+  final bottomNavC = Get.put(BottomNavController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,18 +28,24 @@ class MoviesView extends StatelessWidget {
           PopupMenuButton(
             color: const Color.fromARGB(255, 23, 23, 43),
             itemBuilder: (context) => [
-              PopupMenuItem(child: Obx(() => Text(homeC.name.value))),
               PopupMenuItem(
-                child: GestureDetector(
-                  child: Row(
-                    children: const [
-                      Icon(Icons.logout),
-                      SizedBox(width: 10),
-                      Text('Logout'),
-                    ],
-                  ),
-                  onTap: () => profileC.confirmLogout(),
+                child: Obx(() => Text(homeC.name.value)),
+                onTap: () => bottomNavC.changeTabIndex(2),
+              ),
+              PopupMenuItem(
+                child: Row(
+                  children: const [
+                    Icon(Icons.logout),
+                    SizedBox(width: 10),
+                    Text('Logout'),
+                  ],
                 ),
+                onTap: () {
+                  Future.delayed(
+                    const Duration(seconds: 0),
+                    () => profileC.confirmLogout(),
+                  );
+                },
               )
             ],
           ),
@@ -95,7 +104,8 @@ class MoviesView extends StatelessWidget {
                     beginDuration: const Duration(milliseconds: 100),
                     endDuration: const Duration(milliseconds: 100),
                     onTap: () {
-                      Get.to(() => DetailView(movie: movieC.moviesData[index]), binding: DetailBinding());
+                      Get.to(() => DetailView(movie: movieC.moviesData[index]),
+                          binding: DetailBinding());
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
@@ -111,7 +121,7 @@ class MoviesView extends StatelessWidget {
                           color: Colors.black.withOpacity(0.7),
                           child: Center(
                             child: Text(
-                              '${movieC.moviesData[index].judul}',
+                              movieC.moviesData[index].judul,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
                             ),

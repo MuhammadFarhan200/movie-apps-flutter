@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_if_null_operators, unnecessary_null_comparison
+// ignore_for_file: prefer_if_null_operators, unnecessary_null_comparison, prefer_typing_uninitialized_variables
 
 import 'dart:convert';
 
