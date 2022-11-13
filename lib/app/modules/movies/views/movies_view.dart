@@ -26,7 +26,6 @@ class MoviesView extends StatelessWidget {
         centerTitle: false,
         actions: [
           PopupMenuButton(
-            color: const Color.fromARGB(255, 23, 23, 43),
             itemBuilder: (context) => [
               PopupMenuItem(
                 child: Obx(() => Text(homeC.name.value)),
@@ -100,7 +99,7 @@ class MoviesView extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return ZoomTapAnimation(
                     begin: 1.0,
-                    end: 0.9,
+                    end: 0.93,
                     beginDuration: const Duration(milliseconds: 100),
                     endDuration: const Duration(milliseconds: 100),
                     onTap: () {

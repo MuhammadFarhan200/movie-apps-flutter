@@ -11,18 +11,13 @@ class LoginController extends GetxController {
   TextEditingController passwordController = TextEditingController(text: 'rahasia');
 
   @override
-  void onClose() {
+  void dispose() {
     emailController.dispose();
     passwordController.dispose();
-    super.onClose();
+    super.dispose();
   }
 
   final isLoading = false.obs;
-
-  final _secureText = true.obs;
-  showHide() {
-    return _secureText.value = !_secureText.value;
-  }
 
   void login() async {
     isLoading.value = !isLoading.value;
