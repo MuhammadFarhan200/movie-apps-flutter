@@ -134,7 +134,7 @@ class HomeView extends GetView<HomeController> {
                     itemBuilder: (context, index) {
                       return ZoomTapAnimation(
                         begin: 1.0,
-                        end: 0.93,
+                        end: 0.95,
                         beginDuration: const Duration(milliseconds: 100),
                         endDuration: const Duration(milliseconds: 100),
                         onTap: () {

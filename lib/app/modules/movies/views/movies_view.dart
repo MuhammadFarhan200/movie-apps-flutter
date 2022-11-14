@@ -99,12 +99,15 @@ class MoviesView extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return ZoomTapAnimation(
                     begin: 1.0,
-                    end: 0.93,
+                    end: 0.95,
                     beginDuration: const Duration(milliseconds: 100),
                     endDuration: const Duration(milliseconds: 100),
                     onTap: () {
-                      Get.to(() => DetailView(movie: movieC.moviesData[index]),
-                          binding: DetailBinding());
+                      Get.to(
+                        () => DetailView(movie: movieC.moviesData[index]),
+                        binding: DetailBinding(),
+                        routeName: '/detail',
+                      );
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
