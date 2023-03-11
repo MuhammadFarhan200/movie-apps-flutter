@@ -39,12 +39,12 @@ class HomeView extends GetView<HomeController> {
           primary: false,
           child: Obx(
             () {
-              if (controller.isLoading.isTrue) {
+              if (controller.isLoading.value) {
                 return Shimmer.fromColors(
                   baseColor: const Color.fromARGB(202, 33, 33, 59),
                   highlightColor: const Color.fromARGB(201, 54, 54, 85),
                   child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                     shrinkWrap: true,
                     itemCount: controller.movieList.length,
                     itemBuilder: (context, index) => Container(

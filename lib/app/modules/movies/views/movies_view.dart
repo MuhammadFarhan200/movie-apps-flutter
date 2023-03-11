@@ -9,13 +9,14 @@ import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 import '../../bottom_nav/controllers/bottom_nav_controller.dart';
 import '../controllers/movies_controller.dart';
 
-class MoviesView extends GetView<MovieController> {
+class MoviesView extends GetView<MoviesController> {
   MoviesView({Key? key}) : super(key: key);
   final homeC = Get.put(HomeController());
   final bottomNavC = Get.put(BottomNavController());
 
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut(() => MoviesController());
     return Scaffold(
       appBar: AppBar(
         title: const Text(' Movies List'),
@@ -36,11 +37,12 @@ class MoviesView extends GetView<MovieController> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Obx(
             () {
-              if (controller.isLoading.isTrue) {
+              if (controller.isLoading.value) {
                 return Shimmer.fromColors(
                   baseColor: const Color.fromARGB(202, 33, 33, 59),
                   highlightColor: const Color.fromARGB(201, 54, 54, 85),
                   child: GridView.builder(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
