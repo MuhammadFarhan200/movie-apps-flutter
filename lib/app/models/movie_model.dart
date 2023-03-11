@@ -1,57 +1,100 @@
-// ignore_for_file: prefer_if_null_operators, unnecessary_null_comparison, prefer_typing_uninitialized_variables
-
-import 'dart:convert';
-
-List<MovieModel> movieModelFromMap(String str) => List<MovieModel>.from(
-      json.decode(str).map((x) => MovieModel.fromMap(x)),
-    );
-
-String movieModelToMap(List<MovieModel> data) => json.encode(
-      List<dynamic>.from(
-        data.map((x) => x.toMap()),
-      ),
-    );
-
 class MovieModel {
-  MovieModel({
-    required this.id  ,
-    required this.judul,
-    required this.sinopsis,
-    required this.background,
-    required this.cover,
-    required this.durasi,
-    required this.tahunRilis,
-    required this.genreFilm,
-  });
+  int? page;
+  List<Results>? results;
+  int? totalPages;
+  int? totalResults;
 
-  int id;
-  String judul;
-  String sinopsis;
-  String background;
-  String cover;
-  int durasi;
-  var tahunRilis;
-  var genreFilm;
+  MovieModel({this.page, this.results, this.totalPages, this.totalResults});
 
-  factory MovieModel.fromMap(Map<String, dynamic> json) => MovieModel(
-        id: json["id"] == null ? null : json["id"],
-        judul: json["judul"] == null ? null : json["judul"],
-        sinopsis: json["sinopsis"] == null ? null : json["sinopsis"],
-        background: json["background"] == null ? null : json["background"],
-        cover: json["cover"] == null ? null : json["cover"],
-        durasi: json["durasi"] == null ? null : json["durasi"],
-        tahunRilis: json["tahunRilis"] == null ? null : json["tahunRilis"],
-        genreFilm: json["genreFilm"] == null ? null : json["genreFilm"],
-      );
+  MovieModel.fromJson(Map<String, dynamic> json) {
+    page = json['page'];
+    if (json['results'] != null) {
+      results = <Results>[];
+      json['results'].forEach((v) {
+        results!.add(Results.fromJson(v));
+      });
+    }
+    totalPages = json['total_pages'];
+    totalResults = json['total_results'];
+  }
 
-  Map<String, dynamic> toMap() => {
-        "id": id == null ? null : id,
-        "judul": judul == null ? null : judul,
-        "sinopsis": sinopsis == null ? null : sinopsis,
-        "background": background == null ? null : background,
-        "cover": cover == null ? null : cover,
-        "durasi": durasi == null ? null : durasi,
-        "tahunRilis": tahunRilis == null ? null : tahunRilis,
-        "genreFilm": genreFilm == null ? null : genreFilm,
-      };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['page'] = page;
+    if (results != null) {
+      data['results'] = results!.map((v) => v.toJson()).toList();
+    }
+    data['total_pages'] = totalPages;
+    data['total_results'] = totalResults;
+    return data;
+  }
+}
+
+class Results {
+  bool? adult;
+  String? backdropPath;
+  List<int>? genreIds;
+  int? id;
+  String? originalLanguage;
+  String? originalTitle;
+  String? overview;
+  double? popularity;
+  String? posterPath;
+  String? releaseDate;
+  String? title;
+  bool? video;
+  double? voteAverage;
+  int? voteCount;
+
+  Results(
+      {this.adult,
+      this.backdropPath,
+      this.genreIds,
+      this.id,
+      this.originalLanguage,
+      this.originalTitle,
+      this.overview,
+      this.popularity,
+      this.posterPath,
+      this.releaseDate,
+      this.title,
+      this.video,
+      this.voteAverage,
+      this.voteCount});
+
+  Results.fromJson(Map<String, dynamic> json) {
+    adult = json['adult'];
+    backdropPath = json['backdrop_path'];
+    genreIds = json['genre_ids'].cast<int>();
+    id = json['id'];
+    originalLanguage = json['original_language'];
+    originalTitle = json['original_title'];
+    overview = json['overview'];
+    popularity = json['popularity'];
+    posterPath = json['poster_path'];
+    releaseDate = json['release_date'];
+    title = json['title'];
+    video = json['video'];
+    voteAverage = json['vote_average'];
+    voteCount = json['vote_count'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['adult'] = adult;
+    data['backdrop_path'] = backdropPath;
+    data['genre_ids'] = genreIds;
+    data['id'] = id;
+    data['original_language'] = originalLanguage;
+    data['original_title'] = originalTitle;
+    data['overview'] = overview;
+    data['popularity'] = popularity;
+    data['poster_path'] = posterPath;
+    data['release_date'] = releaseDate;
+    data['title'] = title;
+    data['video'] = video;
+    data['vote_average'] = voteAverage;
+    data['vote_count'] = voteCount;
+    return data;
+  }
 }

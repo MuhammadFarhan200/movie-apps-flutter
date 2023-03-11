@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:movie_apps_flutter/app/modules/home/controllers/home_controller.dart';
 
 import '../controllers/profile_controller.dart';
 
@@ -9,10 +8,9 @@ class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final HomeController homeC = Get.put(HomeController());
-    Get.lazyPut(()=>ProfileController());
     return Scaffold(
       extendBody: true,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         leadingWidth: 80,
         title: const Text(' Profile'),
@@ -57,24 +55,20 @@ class ProfileView extends GetView<ProfileController> {
                       style: TextStyle(fontSize: 18),
                     ),
                     const SizedBox(height: 10),
-                    Obx(
-                      () => Row(
-                        children: [
-                          const Icon(Icons.person),
-                          const SizedBox(width: 10),
-                          Text(homeC.name.value),
-                        ],
-                      ),
+                    Row(
+                      children: const [
+                        Icon(Icons.person),
+                        SizedBox(width: 10),
+                        Text('Your Name'),
+                      ],
                     ),
                     const SizedBox(height: 5),
-                    Obx(
-                      () => Row(
-                        children: [
-                          const Icon(Icons.mail),
-                          const SizedBox(width: 10),
-                          Text(homeC.email.value),
-                        ],
-                      ),
+                    Row(
+                      children: const [
+                        Icon(Icons.mail),
+                        SizedBox(width: 10),
+                        Text('Your Email'),
+                      ],
                     ),
                     const SizedBox(height: 10),
                     const Text(

@@ -1,5 +1,5 @@
 class ApiConst {
   ApiConst._();
-  static const String baseUrl = "http://movie-apps-farhan.herokuapp.com/api/v1/";
-  static const String path = "movies";
+  static String baseUrl = "https://api.themoviedb.org/3/movie";
+  static String apiKey = "b8357196e5458c64df508d9e5a2fa3bf";
 }

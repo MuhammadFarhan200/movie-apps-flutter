@@ -3,20 +3,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:movie_apps_flutter/app/controllers/bottom_nav_controller.dart';
-import 'package:movie_apps_flutter/app/modules/detail/bindings/detail_binding.dart';
-import 'package:movie_apps_flutter/app/modules/detail/views/detail_view.dart';
 import 'package:movie_apps_flutter/app/modules/movies/controllers/movies_controller.dart';
-import 'package:movie_apps_flutter/app/modules/profile/controllers/profile_controller.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
+import '../../../routes/app_pages.dart';
+import '../../bottom_nav/controllers/bottom_nav_controller.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({Key? key}) : super(key: key);
   final movieC = Get.put(MovieController());
-  final profileC = Get.put(ProfileController());
   final bottomNavC = Get.put(BottomNavController());
 
   @override
@@ -26,35 +23,15 @@ class HomeView extends GetView<HomeController> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,
-        title: const Image(
-          height: 80,
-          image: AssetImage('assets/images/movie-apps-logo-no-bg.png'),
-        ),
+        title: const Text(' Movie Apps'),
         centerTitle: false,
         actions: [
-          PopupMenuButton(
-            
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                child: Obx(() => Text(controller.name.value)),
-                onTap: () => bottomNavC.changeTabIndex(2),
-              ),
-              PopupMenuItem(
-                child: Row(
-                  children: const [
-                    Icon(Icons.logout),
-                    SizedBox(width: 10),
-                    Text('Logout'),
-                  ],
-                ),
-                onTap: () {
-                  Future.delayed(
-                    const Duration(seconds: 0),
-                    () => profileC.confirmLogout(),
-                  );
-                },
-              )
-            ],
+          IconButton(
+            onPressed: () {
+              controller.onWillPop();
+            },
+            icon: const Icon(Icons.logout),
+            tooltip: 'Exit',
           ),
           const SizedBox(width: 15),
         ],
@@ -71,7 +48,7 @@ class HomeView extends GetView<HomeController> {
                   child: ListView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     shrinkWrap: true,
-                    itemCount: controller.movies.length,
+                    itemCount: controller.movieList.length,
                     itemBuilder: (context, index) => Container(
                       margin: const EdgeInsets.symmetric(
                         vertical: 10,
@@ -101,21 +78,20 @@ class HomeView extends GetView<HomeController> {
                     child: CarouselSlider(
                       options: CarouselOptions(
                         enlargeCenterPage: true,
-                        enableInfiniteScroll: true,
+                        enableInfiniteScroll: false,
                         autoPlay: true,
                         initialPage: 1,
                         height: Get.height * 0.30,
                         enlargeStrategy: CenterPageEnlargeStrategy.scale,
-                        autoPlayAnimationDuration:
-                            const Duration(milliseconds: 1000),
+                        autoPlayAnimationDuration: const Duration(milliseconds: 1000),
                       ),
-                      items: controller.imageSliders
+                      items: controller.movieList
                           .map(
                             (e) => Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 image: DecorationImage(
-                                  image: AssetImage(e),
+                                  image: NetworkImage('https://image.tmdb.org/t/p/w500${e['backdrop_path']}'),
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -130,27 +106,23 @@ class HomeView extends GetView<HomeController> {
                     padding: const EdgeInsets.all(20),
                     shrinkWrap: true,
                     physics: const ScrollPhysics(),
-                    itemCount: controller.movies.length,
+                    itemCount: controller.movieList.length,
                     itemBuilder: (context, index) {
+                      final movie = controller.movieList[index]; 
                       return ZoomTapAnimation(
                         begin: 1.0,
                         end: 0.95,
                         beginDuration: const Duration(milliseconds: 100),
                         endDuration: const Duration(milliseconds: 100),
                         onTap: () {
-                          Get.to(
-                            () => DetailView(movie: controller.movies[index]),
-                            binding: DetailBinding(),
-                            routeName: '/detail',
-                          );
+                          Get.toNamed(Routes.DETAIL, arguments: movie);
                         },
                         child: Stack(
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: Image(
-                                image: AssetImage(controller.imageSliders[
-                                    controller.movies[index].id - 1]),
+                                image: NetworkImage('https://image.tmdb.org/t/p/w500${movie['backdrop_path']}'),
                                 fit: BoxFit.cover,
                                 height: Get.height * 0.30,
                                 width: Get.width * 0.95,
@@ -185,7 +157,7 @@ class HomeView extends GetView<HomeController> {
                                   horizontal: 12,
                                 ),
                                 child: Text(
-                                  controller.movies[index].judul,
+                                  movie['title'],
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: Colors.white,
@@ -212,7 +184,7 @@ class HomeView extends GetView<HomeController> {
                                     const Icon(CupertinoIcons.time, size: 20),
                                     const SizedBox(width: 10),
                                     Text(
-                                      '${controller.movies[index].durasi} Menit',
+                                      movie['release_date'],
                                     ),
                                   ],
                                 ),

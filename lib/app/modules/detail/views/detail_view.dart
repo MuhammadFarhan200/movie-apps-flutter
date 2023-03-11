@@ -3,15 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 
 import 'package:get/get.dart';
-import 'package:movie_apps_flutter/app/models/movie_model.dart';
-import 'package:movie_apps_flutter/app/modules/home/controllers/home_controller.dart';
 
 class DetailView extends StatelessWidget {
-  DetailView({Key? key, required this.movie}) : super(key: key);
-
-  final MovieModel movie;
-  final HomeController homeC = Get.put(HomeController());
-
+  const DetailView({Key? key, required this.movie}) : super(key: key);
+  // ignore: prefer_typing_uninitialized_variables
+  final movie;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -33,20 +29,22 @@ class DetailView extends StatelessWidget {
                 pinned: true,
                 elevation: 0,
                 flexibleSpace: FlexibleSpaceBar(
-                  titlePadding: const EdgeInsets.only(top: 0, bottom: 15, left: 15, right: 15),
+                  titlePadding: const EdgeInsets.only(top: 0, bottom: 15, left: 20, right: 15),
                   expandedTitleScale: 1.2,
                   centerTitle: true,
                   title: Text(
-                    movie.judul,
+                    movie['title'],
                     style: const TextStyle(
-                      fontSize: 22,
+                      fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   background: Stack(
                     children: [
                       Image(
-                        image: AssetImage(homeC.imageSliders[movie.id - 1]),
+                        image: NetworkImage(
+                          'https://image.tmdb.org/t/p/w500${movie['backdrop_path']}',
+                        ),
                         fit: BoxFit.cover,
                         width: Get.width,
                         height: Get.height,
@@ -91,9 +89,19 @@ class DetailView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Text('${movie.durasi} Menit'),
+                Text(
+                  movie['release_date'],
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),),
                 const SizedBox(height: 10),
-                Text(_parseHtmlString(movie.sinopsis)),
+                Text(_parseHtmlString(movie['overview']),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
               ],
             ),
           ),

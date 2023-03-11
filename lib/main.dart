@@ -43,7 +43,6 @@ class MyApp extends StatelessWidget {
       defaultTransition: Transition.cupertino,
       opaqueRoute: Get.isOpaqueRouteDefault,
       popGesture: Get.isPopGestureEnable,
-      transitionDuration: const Duration(milliseconds: 600),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
     );

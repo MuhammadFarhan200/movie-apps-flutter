@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:movie_apps_flutter/app/routes/app_pages.dart';
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreenController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -17,8 +16,14 @@ class SplashScreenController extends GetxController
     animationInitilization();
     Timer(
       const Duration(seconds: 3),
-      () => checkIfLoggedIn(),
+      () => Get.offAllNamed(Routes.BOTTOM_NAV),
     );
+  }
+
+  @override
+  void onClose() {
+    animationController.dispose();
+    super.onClose();
   }
 
   animationInitilization() {
@@ -33,17 +38,5 @@ class SplashScreenController extends GetxController
     animation.addListener(() => update());
     animationController.forward();
     animationController.removeListener(() { });
-  }
-
-  void checkIfLoggedIn() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var token = localStorage.getString('token');
-    if (token != null) {
-      isAuth.value = true;
-      Get.offAllNamed(Routes.STARTPAGE);
-    }
-    else {
-      Get.offAllNamed(Routes.LOGIN);
-    }
   }
 }

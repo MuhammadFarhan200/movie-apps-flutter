@@ -36,7 +36,7 @@ class RegisterController extends GetxController {
       localStorage.setString('token', json.encode(body['token']));
       localStorage.setString('user', json.encode(body['user']));
       // ignore: use_build_context_synchronously
-      Get.offAllNamed(Routes.STARTPAGE);
+      Get.offAllNamed(Routes.BOTTOM_NAV);
     } else {
       if (body['message']['name'] != null) {
         _showMsg(body['message']['name'][0].toString());

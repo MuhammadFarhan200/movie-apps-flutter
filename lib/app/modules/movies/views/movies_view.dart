@@ -1,52 +1,33 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:movie_apps_flutter/app/controllers/bottom_nav_controller.dart';
-import 'package:movie_apps_flutter/app/modules/detail/bindings/detail_binding.dart';
-import 'package:movie_apps_flutter/app/modules/detail/views/detail_view.dart';
 import 'package:movie_apps_flutter/app/modules/home/controllers/home_controller.dart';
-import 'package:movie_apps_flutter/app/modules/profile/controllers/profile_controller.dart';
+import 'package:movie_apps_flutter/app/routes/app_pages.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
+import '../../bottom_nav/controllers/bottom_nav_controller.dart';
 import '../controllers/movies_controller.dart';
 
 class MoviesView extends StatelessWidget {
   MoviesView({Key? key}) : super(key: key);
   final movieC = Get.put(MovieController());
   final homeC = Get.put(HomeController());
-  final profileC = Get.put(ProfileController());
   final bottomNavC = Get.put(BottomNavController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(' Daftar Movie'),
+        title: const Text(' Movies List'),
         centerTitle: false,
         actions: [
-          PopupMenuButton(
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                child: Obx(() => Text(homeC.name.value)),
-                onTap: () => bottomNavC.changeTabIndex(2),
-              ),
-              PopupMenuItem(
-                child: Row(
-                  children: const [
-                    Icon(Icons.logout),
-                    SizedBox(width: 10),
-                    Text('Logout'),
-                  ],
-                ),
-                onTap: () {
-                  Future.delayed(
-                    const Duration(seconds: 0),
-                    () => profileC.confirmLogout(),
-                  );
-                },
-              )
-            ],
+          IconButton(
+            onPressed: () {
+              homeC.onWillPop();
+            },
+            icon: const Icon(Icons.logout),
+            tooltip: 'Exit',
           ),
           const SizedBox(width: 15),
         ],
@@ -68,7 +49,7 @@ class MoviesView extends StatelessWidget {
                       mainAxisSpacing: 10,
                       crossAxisSpacing: 10,
                     ),
-                    itemCount: movieC.moviesData.length,
+                    itemCount: movieC.movieList.length,
                     itemBuilder: (context, index) {
                       return Container(
                         decoration: BoxDecoration(
@@ -95,26 +76,23 @@ class MoviesView extends StatelessWidget {
                   mainAxisSpacing: 15,
                   crossAxisCount: 2,
                 ),
-                itemCount: movieC.moviesData.length,
+                itemCount: movieC.movieList.length,
                 itemBuilder: (context, index) {
+                  final movie = movieC.movieList[index];
                   return ZoomTapAnimation(
                     begin: 1.0,
                     end: 0.95,
                     beginDuration: const Duration(milliseconds: 100),
                     endDuration: const Duration(milliseconds: 100),
                     onTap: () {
-                      Get.to(
-                        () => DetailView(movie: movieC.moviesData[index]),
-                        binding: DetailBinding(),
-                        routeName: '/detail',
-                      );
+                      Get.toNamed(Routes.DETAIL, arguments: movie);
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: GridTile(
                         // ignore: sort_child_properties_last
-                        child: Image.asset(
-                          homeC.imageSliders[movieC.moviesData[index].id - 1],
+                        child: Image.network(
+                          'https://image.tmdb.org/t/p/w500${movie['poster_path']}',
                           fit: BoxFit.cover,
                         ),
                         footer: Container(
@@ -123,7 +101,7 @@ class MoviesView extends StatelessWidget {
                           color: Colors.black.withOpacity(0.7),
                           child: Center(
                             child: Text(
-                              movieC.moviesData[index].judul,
+                              movie['title'],
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
                             ),

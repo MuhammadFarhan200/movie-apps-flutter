@@ -1,16 +1,15 @@
-import 'package:dio/dio.dart';
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:movie_apps_flutter/app/models/movie_model.dart';
 import 'package:movie_apps_flutter/app/providers/dio_helper.dart';
-import 'package:movie_apps_flutter/app/providers/movies_repository.dart';
+import 'package:http/http.dart' as http;
 
 class MovieController extends GetxController {
   var isLoading = true.obs;
   var isError = false.obs;
   var errmsg = ''.obs;
-  var moviesData = <MovieModel>[].obs;
-
-  Dio dio = Dio();
+  var movieList = [].obs;
 
   @override
   void onInit() {
@@ -18,20 +17,23 @@ class MovieController extends GetxController {
     super.onInit();
   }
 
-  Future<List<MovieModel>> getMovie() async {
-    isLoading(true);
+
+  void getMovie() async {
     try {
-      final result = await ApiClient().getData(ApiConst.path);
-      final List data = result['data'];
-      isLoading(false);
-      isError(false);
-      moviesData.value = data.map((e) => MovieModel.fromMap(e)).toList();
-      return moviesData;
+      isLoading(true);
+      var response = await http.get(Uri.parse('${ApiConst.baseUrl}/popular?api_key=${ApiConst.apiKey}'));
+      if (response.statusCode == 200) {
+        var movieJson = jsonDecode(response.body)['results'];
+        for (var movie in movieJson) {
+          movieList.add(movie);
+        }
+      }
     } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    } finally {
       isLoading(false);
-      isError(true);
-      errmsg(e.toString());
-      throw Exception(e);
     }
   }
 }

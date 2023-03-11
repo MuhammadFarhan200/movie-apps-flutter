@@ -1,58 +1,85 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:movie_apps_flutter/app/providers/dio_helper.dart';
-import 'package:movie_apps_flutter/app/providers/movies_repository.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../models/movie_model.dart';
+import 'package:http/http.dart' as http;
 
 class HomeController extends GetxController {
-  final movieApi = ApiClient();
-  var movies = <MovieModel>[].obs;
+  var movieList = [].obs;
   final isLoading = true.obs;
-  var isError = false.obs;
-  var errmsg = ''.obs;
   final List<String> imageSliders = [
     'assets/images/ali-ratu-ratu-queens.jpg',
     'assets/images/spider-man-no-way-home.jpg',
     'assets/images/spider-man-far-from-home.jpg',
-    ];
+  ];
 
   @override
   void onInit() {
     super.onInit();
-    loadUserData();
-    fetchUpcomingMovies();
+    getMovie();
   }
 
-  Future<List<MovieModel>> fetchUpcomingMovies() async {
-    isLoading(true);
+  void getMovie() async {
     try {
-      final result = await ApiClient().getData(ApiConst.path);
-      final List data = result['data'];
-      isLoading(false);
-      isError(false);
-      movies.value = data.map((e) => MovieModel.fromMap(e)).toList();
-      return movies;
+      isLoading(true);
+      var response = await http.get(Uri.parse('${ApiConst.baseUrl}/popular?api_key=${ApiConst.apiKey}'));
+      if (response.statusCode == 200) {
+        var movieJson = jsonDecode(response.body)['results'];
+        for (var movie in movieJson) {
+          movieList.add(movie);
+        }
+      }
     } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    } finally {
       isLoading(false);
-      isError(true);
-      errmsg(e.toString());
-      throw Exception(e);
     }
   }
 
-  final name = ''.obs;
-  final email = ''.obs;
-
-  void loadUserData() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var user = jsonDecode(localStorage.getString('user') ?? '');
-
-    if (user != null) {
-      name.value = user['name'];
-      email.value = user['email'];
-    }
+  void onWillPop() async {
+    return await Get.generalDialog(
+      barrierDismissible: false,
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return WillPopScope(
+          onWillPop: () async => false,
+          child: AlertDialog(
+            backgroundColor: const Color.fromARGB(255, 15, 15, 29),
+            title: const Text('Are you sure?'),
+            content: const Text('Do you want to exit an App', style: TextStyle(fontSize: 16, color: Colors.white)),
+            actions: [
+              TextButton(
+                onPressed: () => Get.back(),
+                style: ButtonStyle(
+                  overlayColor: MaterialStateProperty.resolveWith((states) => const Color.fromARGB(43, 186, 201, 254)),
+                ),
+                child: const Text('No', style: TextStyle(color: Colors.white)),
+              ),
+              TextButton(
+                onPressed: () => SystemNavigator.pop(),
+                style: ButtonStyle(
+                  overlayColor: MaterialStateProperty.resolveWith((states) => const Color.fromARGB(43, 254, 186, 186)),
+                ),
+                child: const Text(
+                  'Yes',
+                  style: TextStyle(color: Color.fromARGB(255, 254, 137, 137)),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+      transitionDuration: const Duration(milliseconds: 200),
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        return ScaleTransition(
+          scale: animation,
+          child: child,
+        );
+      },
+    );
   }
 }

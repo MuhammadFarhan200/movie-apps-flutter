@@ -31,7 +31,7 @@ class LoginController extends GetxController {
       localStorage.setString('user', json.encode(body['user']));
       // ignore: use_build_context_synchronously
       // Get.offAllNamed(Routes.HOME);
-      Get.offAllNamed(Routes.STARTPAGE);
+      Get.offAllNamed(Routes.BOTTOM_NAV);
     } else {
       Get.snackbar(
         'OOPS!',
