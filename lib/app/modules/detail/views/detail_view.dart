@@ -24,7 +24,7 @@ class DetailView extends StatelessWidget {
                     icon: const Icon(CupertinoIcons.back),
                   ),
                 ),
-                expandedHeight: Get.height * 0.40,
+                expandedHeight: Get.height * 0.80,
                 floating: false,
                 pinned: true,
                 elevation: 0,
@@ -43,7 +43,7 @@ class DetailView extends StatelessWidget {
                     children: [
                       Image(
                         image: NetworkImage(
-                          'https://image.tmdb.org/t/p/w500${movie['backdrop_path']}',
+                          'https://image.tmdb.org/t/p/w500${movie['poster_path']}',
                         ),
                         fit: BoxFit.cover,
                         width: Get.width,
