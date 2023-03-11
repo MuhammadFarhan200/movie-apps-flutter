@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:movie_apps_flutter/app/modules/movies/controllers/movies_controller.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
@@ -13,7 +12,6 @@ import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({Key? key}) : super(key: key);
-  final movieC = Get.put(MovieController());
   final bottomNavC = Get.put(BottomNavController());
 
   @override
@@ -41,7 +39,7 @@ class HomeView extends GetView<HomeController> {
           primary: false,
           child: Obx(
             () {
-              if (movieC.isLoading.isTrue) {
+              if (controller.isLoading.isTrue) {
                 return Shimmer.fromColors(
                   baseColor: const Color.fromARGB(202, 33, 33, 59),
                   highlightColor: const Color.fromARGB(201, 54, 54, 85),
@@ -62,10 +60,10 @@ class HomeView extends GetView<HomeController> {
                     ),
                   ),
                 );
-              } else if (movieC.isError.value) {
+              } else if (controller.isError.value) {
                 return Center(
                   child: Text(
-                    "Error: ${movieC.errmsg.value.capitalize}",
+                    "Error: ${controller.errmsg.value.capitalize}",
                   ),
                 );
               } else {}

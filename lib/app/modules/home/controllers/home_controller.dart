@@ -9,12 +9,9 @@ import 'package:http/http.dart' as http;
 
 class HomeController extends GetxController {
   var movieList = [].obs;
-  final isLoading = true.obs;
-  final List<String> imageSliders = [
-    'assets/images/ali-ratu-ratu-queens.jpg',
-    'assets/images/spider-man-no-way-home.jpg',
-    'assets/images/spider-man-far-from-home.jpg',
-  ];
+  var isError = false.obs;
+  var errmsg = ''.obs;
+  final isLoading = false.obs;
 
   @override
   void onInit() {

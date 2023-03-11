@@ -9,9 +9,8 @@ import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 import '../../bottom_nav/controllers/bottom_nav_controller.dart';
 import '../controllers/movies_controller.dart';
 
-class MoviesView extends StatelessWidget {
+class MoviesView extends GetView<MovieController> {
   MoviesView({Key? key}) : super(key: key);
-  final movieC = Get.put(MovieController());
   final homeC = Get.put(HomeController());
   final bottomNavC = Get.put(BottomNavController());
 
@@ -37,7 +36,7 @@ class MoviesView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Obx(
             () {
-              if (movieC.isLoading.isTrue) {
+              if (controller.isLoading.isTrue) {
                 return Shimmer.fromColors(
                   baseColor: const Color.fromARGB(202, 33, 33, 59),
                   highlightColor: const Color.fromARGB(201, 54, 54, 85),
@@ -49,7 +48,7 @@ class MoviesView extends StatelessWidget {
                       mainAxisSpacing: 10,
                       crossAxisSpacing: 10,
                     ),
-                    itemCount: movieC.movieList.length,
+                    itemCount: controller.movieList.length,
                     itemBuilder: (context, index) {
                       return Container(
                         decoration: BoxDecoration(
@@ -60,10 +59,10 @@ class MoviesView extends StatelessWidget {
                     },
                   ),
                 );
-              } else if (movieC.isError.value) {
+              } else if (controller.isError.value) {
                 return Center(
                   child: Text(
-                    "Error: ${movieC.errmsg.value.capitalize}",
+                    "Error: ${controller.errmsg.value.capitalize}",
                   ),
                 );
               } else {}
@@ -76,9 +75,9 @@ class MoviesView extends StatelessWidget {
                   mainAxisSpacing: 15,
                   crossAxisCount: 2,
                 ),
-                itemCount: movieC.movieList.length,
+                itemCount: controller.movieList.length,
                 itemBuilder: (context, index) {
-                  final movie = movieC.movieList[index];
+                  final movie = controller.movieList[index];
                   return ZoomTapAnimation(
                     begin: 1.0,
                     end: 0.95,

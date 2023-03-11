@@ -6,7 +6,7 @@ import 'package:movie_apps_flutter/app/providers/dio_helper.dart';
 import 'package:http/http.dart' as http;
 
 class MovieController extends GetxController {
-  var isLoading = true.obs;
+  var isLoading = false.obs;
   var isError = false.obs;
   var errmsg = ''.obs;
   var movieList = [].obs;
