@@ -99,7 +99,7 @@ class MoviesView extends GetView<MoviesController> {
                         footer: Container(
                           height: 50,
                           padding: const EdgeInsets.symmetric(horizontal: 15),
-                          color: Colors.black.withOpacity(0.7),
+                        color: Colors.black.withOpacity(0.7),
                           child: Center(
                             child: Text(
                               movie['title'],
